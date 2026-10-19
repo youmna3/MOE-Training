@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مراجعة أدوار منصّة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300..700&display=swap">
+<style>
+/* iSchool brand: blue #056FEC (60%), orange #FF7F1C (30%), yellow #FFD700 (10%), deep blue #043FAD, navy text #1F2A55 */
+:root{
+  --white:#FFFFFF; --tint:#F7FAFF; --line:#E6EDF1; --line2:#B1D1E6;
+  --ink:#1F2A55; --muted:#597587;
+  --blue:#056FEC; --blue-deep:#043FAD; --sky:#05ACFF; --orange:#FF7F1C; --yellow:#FFD700;
+  --ok:#0EAA3A; --ok-deep:#0A852D; --ok-bg:#BCECCA; --bad:#DE1F1F; --bad-deep:#AA1818; --bad-bg:#FFD1D1; --gold:#FFBB1C;
+  --font:'Somar Rounded','Readex Pro',Tahoma,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--white);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;min-height:100vh;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.wrap{max-width:900px;margin-inline:auto}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:16px;border-bottom:1px solid var(--line);margin-bottom:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{width:116px;height:auto;display:block}
+.brand .sep{width:1px;height:28px;background:var(--line)}
+.brand .app{font-weight:700;color:var(--blue-deep);font-size:18px}
+.hud{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;border:1.5px solid var(--line);background:var(--white)}
+.pill.pts{border-color:var(--yellow);background:#FFF8CC}
+.pill.streak{border-color:var(--orange);color:var(--orange)}
+.pill.home{cursor:pointer;color:var(--blue)}
+.bump{animation:bump .45s}
+@keyframes bump{30%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+/* home */
+.hero{display:grid;gap:10px;margin-bottom:24px}
+.eyebrow{color:var(--orange);font-weight:600;font-size:14px}
+h1{margin:0;font-size:clamp(28px,5.5vw,40px);line-height:1.2;color:var(--blue-deep);text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:60ch}
+.roles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.role{position:relative;overflow:hidden;text-align:right;cursor:pointer;background:var(--white);border:1.5px solid var(--line);border-radius:22px;padding:22px;display:grid;gap:8px;transition:transform .15s,border-color .15s,box-shadow .15s}
+.role:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 10px 24px rgba(5,111,236,.12)}
+.role .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--tint);color:var(--blue)}
+.role .ic svg{width:28px;height:28px}
+.role h3{margin:0;font-size:21px}
+.role p{margin:0;color:var(--muted);font-size:14px}
+.role .meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:13px;color:var(--muted)}
+.stars{color:var(--gold);letter-spacing:2px;font-size:16px}
+.role.all{background:var(--blue);border-color:var(--blue);color:var(--white)}
+.role.all p,.role.all .meta{color:#E6EDF1}
+.role.all .ic{background:rgba(255,255,255,.18);color:var(--yellow)}
+.dot{position:absolute;left:-30px;bottom:-30px;width:90px;height:90px;border-radius:50%;background:var(--yellow);opacity:.18}
+.role.all .dot{opacity:.35}
+
+/* role screen */
+.rhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.rhead h2{margin:0;font-size:clamp(22px,4vw,30px);color:var(--blue-deep)}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.seg button{border:0;background:var(--white);padding:9px 18px;cursor:pointer;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--blue);color:var(--white)}
+.prog{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;margin-bottom:16px}
+.track{flex:1;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--yellow));transition:width .4s}
+
+.card{position:relative;background:var(--white);border:1.5px solid var(--line);border-radius:24px;padding:24px;display:grid;gap:16px;box-shadow:0 6px 20px rgba(31,42,85,.06)}
+.card.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.card.glow{animation:glow .7s}
+@keyframes glow{0%{box-shadow:0 0 0 0 rgba(14,170,58,.5)}100%{box-shadow:0 0 0 18px rgba(14,170,58,0)}}
+.tag{justify-self:start;font-size:13px;font-weight:600;padding:3px 12px;border-radius:999px;background:var(--tint);color:var(--blue-deep);border:1px solid var(--line2)}
+.q{margin:0;font-size:clamp(19px,3.4vw,24px);font-weight:600;line-height:1.5;text-wrap:balance}
+.timer{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.timer i{display:block;height:100%;background:var(--blue);width:100%}
+.opts{display:grid;gap:10px}
+.opt{text-align:right;display:flex;gap:12px;align-items:center;padding:14px 16px;border:2px solid var(--line);border-radius:16px;background:var(--white);cursor:pointer;line-height:1.5;transition:transform .1s,border-color .15s}
+.opt:hover:not(:disabled){border-color:var(--blue);transform:translateX(-3px)}
+.opt .k{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--tint);font-weight:700;color:var(--blue)}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right .k{background:var(--ok);color:var(--white)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .k{background:var(--bad);color:var(--white)}
+.opt:disabled{cursor:default}
+.opt .mk{margin-inline-start:auto;font-weight:700;font-size:13px;white-space:nowrap}
+.opt.right .mk{color:var(--ok-deep)} .opt.wrong .mk{color:var(--bad-deep)}
+.feedback{border-radius:16px;padding:14px 16px;display:grid;gap:4px}
+.feedback.ok{background:#EAF8EE;border:1.5px solid var(--ok)}
+.feedback.bad{background:#FFF1F1;border:1.5px solid var(--bad)}
+.feedback b{font-size:17px}
+.feedback.ok b{color:var(--ok-deep)} .feedback.bad b{color:var(--bad-deep)}
+.feedback p{margin:0}
+.src{font-size:13px;color:var(--muted)}
+.hintbtn{justify-self:start;background:none;border:0;color:var(--blue);cursor:pointer;text-decoration:underline;padding:0;font-size:14px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{font-weight:700;padding:11px 22px;border-radius:14px;border:1.5px solid var(--line);background:var(--white);cursor:pointer}
+.btn.go{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:var(--white)}
+.btn:disabled{opacity:.4;cursor:default}
+
+/* floating points */
+.float{position:absolute;top:18px;left:24px;font-weight:800;font-size:26px;pointer-events:none;animation:up 1s forwards}
+.float.p{color:var(--ok)} .float.m{color:var(--bad)}
+@keyframes up{0%{opacity:0;transform:translateY(10px) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-50px) scale(1.2)}}
+
+/* flashcards */
+.flip{border:0;background:none;padding:0;cursor:pointer;perspective:1400px;width:100%;text-align:right}
+.inner{display:grid;transition:transform .55s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;min-height:300px;border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:14px;border:1.5px solid var(--line);background:var(--white);box-shadow:0 6px 20px rgba(31,42,85,.06)}
+.face.front{background:linear-gradient(160deg,var(--white) 60%,var(--tint))}
+.face.back{transform:rotateY(180deg);border-color:var(--blue);background:var(--white)}
+.face .ans{margin:0;font-size:clamp(19px,3.4vw,23px);font-weight:700;color:var(--blue-deep)}
+.face .tap{margin-top:auto;font-size:13px;color:var(--muted)}
+.know{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn.ok{border-color:var(--ok);color:var(--ok-deep)} .btn.bad{border-color:var(--bad);color:var(--bad-deep)}
+
+/* results */
+.result{text-align:center;justify-items:center}
+.medal{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;font-size:56px;background:radial-gradient(circle at 35% 30%,#FFF3A6,var(--yellow) 60%,var(--gold));box-shadow:0 10px 30px rgba(255,187,28,.45)}
+.medal.silver{background:radial-gradient(circle at 35% 30%,#fff,#D7E1EA 60%,#B1C2D1);box-shadow:0 10px 30px rgba(89,117,135,.3)}
+.medal.bronze{background:radial-gradient(circle at 35% 30%,#FFD9B8,var(--orange) 60%,#C85F10);box-shadow:0 10px 30px rgba(255,127,28,.35)}
+.big{font-size:clamp(40px,8vw,60px);font-weight:800;color:var(--blue-deep);line-height:1.1;font-variant-numeric:tabular-nums}
+.statrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.stat{min-width:120px;padding:12px 16px;border-radius:16px;background:var(--tint);border:1px solid var(--line)}
+.stat b{display:block;font-size:24px;color:var(--blue-deep);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.missed{display:grid;gap:8px;width:100%;text-align:right}
+.missed div{padding:12px 14px;border-radius:14px;background:#FFF1F1;border:1px solid var(--bad-bg);font-size:15px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+footer{margin-top:28px;text-align:center;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 125 38" role="img" aria-label="iSchool">
+        <path d="M29.4874 14.1069C28.7272 8.51916 24.9007 3.34958 19.4017 1.71508C13.1678 -0.312203 6.4144 2.6527 1.87835 6.71994C0.864707 7.61955 2.1571 9.16536 3.22143 8.34177C8.78379 3.70436 17.3998 1.56304 22.734 7.36614C24.5713 9.3174 25.5342 11.6741 25.7876 14.1195H29.4874V14.1069Z" fill="#FFD700"/>
+        <path d="M25.42 18.8456C24.7485 21.5445 23.304 24.1166 21.2641 26.0932C18.73 28.6906 15.6891 30.9713 12.5468 31.7696C8.01071 33.0113 3.77875 30.3505 5.81871 25.3836C7.79531 20.5942 11.8499 17.4392 17.1462 15.2345L16.8801 14.6897C20.4532 12.5864 17.1842 7.11273 13.5731 9.12735C9.97464 11.294 6.80701 14.1575 4.03216 17.6166C0.674473 21.6712 -1.79628 28.2092 1.68812 33.0493C6.08479 39.0045 14.7768 37.3193 19.7816 33.3534C24.5584 29.8183 28.499 24.8515 29.4112 18.8583H25.42V18.8456Z" fill="#FFD700"/>
+        <path d="M18.933 20.138L19.2751 29.2862C19.3385 31.022 18.3755 32.1244 16.741 32.1877C15.1065 32.2511 14.0549 31.2248 13.9915 29.4889L13.6494 20.3408C13.5861 18.6049 14.549 17.5026 16.1835 17.4392C17.818 17.3759 18.8697 18.4022 18.933 20.138Z" fill="#056FEC"/>
+        <path d="M56.1333 27.563C54.9296 29.1848 53.0037 30.2618 50.6723 30.5786C45.9082 31.2374 42.2211 28.5639 41.5876 24.0026C40.954 19.4412 43.7669 15.8681 48.5437 15.2092C50.6343 14.9178 52.5476 15.2979 54.2201 16.4002C54.7649 16.793 55.1324 17.3632 55.221 18.0221C55.4238 19.4538 54.6129 20.5182 53.1811 20.7209C52.5476 20.8096 51.9647 20.6702 51.4959 20.3915C50.6597 19.9226 49.9501 19.7706 49.1899 19.872C47.5174 20.1 46.5671 21.4684 46.8078 23.2677C47.0612 25.0542 48.3536 26.1185 50.0135 25.8905C50.9511 25.7638 51.6986 25.2823 52.2435 24.5854C52.725 24.0279 53.2444 23.7365 53.8526 23.6478C55.3097 23.4451 56.3867 24.256 56.5768 25.6877C56.6782 26.3973 56.4881 27.0435 56.1333 27.563Z" fill="#056FEC"/>
+        <path d="M73.6313 24.0026L72.9725 29.755C72.7824 31.4275 71.6801 32.3524 70.0962 32.1751C68.5124 31.9977 67.6635 30.8446 67.8536 29.1721L68.4491 24.0279C68.6518 22.292 67.9676 21.2531 66.4725 21.0883C64.8253 20.8983 63.8243 21.8612 63.5963 23.8125L63.0388 28.6273C62.8487 30.2998 61.7464 31.2248 60.1625 31.0474C58.5787 30.87 57.7298 29.717 57.9199 28.0445L59.7951 11.7628C59.9852 10.0903 61.0875 9.16536 62.6713 9.34275C64.2551 9.53281 65.1167 10.6732 64.914 12.3457L64.3058 17.6419L64.3692 17.6546C65.4082 16.7297 66.7766 16.3622 68.3857 16.5396C72.3136 16.9958 74.1381 19.6186 73.6313 24.0026Z" fill="#056FEC"/>
+        <path d="M83.3494 16.4002C88.1642 16.4002 91.4459 19.5552 91.4459 24.1546C91.4459 28.754 88.1642 31.909 83.3494 31.909C78.5346 31.909 75.2529 28.754 75.2529 24.1546C75.2529 19.5552 78.5346 16.4002 83.3494 16.4002ZM83.3494 27.1955C85.0346 27.1955 86.1749 25.9665 86.1749 24.1546C86.1749 22.3427 85.0346 21.1137 83.3494 21.1137C81.6642 21.1137 80.5239 22.3427 80.5239 24.1546C80.5239 25.9665 81.6642 27.1955 83.3494 27.1955Z" fill="#056FEC"/>
+        <path d="M101.152 15.6653C105.967 15.6653 109.249 18.8203 109.249 23.4197C109.249 28.0191 105.967 31.1741 101.152 31.1741C96.3373 31.1741 93.0557 28.0191 93.0557 23.4197C93.0557 18.8203 96.3373 15.6653 101.152 15.6653ZM101.152 26.4606C102.837 26.4606 103.978 25.2316 103.978 23.4197C103.978 21.6078 102.837 20.3788 101.152 20.3788C99.467 20.3788 98.3266 21.6078 98.3266 23.4197C98.3393 25.2316 99.467 26.4606 101.152 26.4606Z" fill="#056FEC"/>
+        <path d="M117.357 13.4733L115.57 29.7423C115.38 31.4148 114.291 32.3524 112.707 32.175C111.123 31.9977 110.262 30.8573 110.439 29.1848L112.225 12.9158C112.416 11.2433 113.505 10.3057 115.089 10.4831C116.686 10.6478 117.547 11.7882 117.357 13.4733Z" fill="#056FEC"/>
+        <path d="M32.7939 31.6175C29.9811 31.9216 27.0922 31.3261 24.6594 29.9577C23.9499 29.5649 23.4431 28.7793 23.3417 27.9304C23.177 26.448 24.2286 25.1682 25.7238 25.0035C26.3066 24.9402 26.8514 25.0542 27.3836 25.3456C29.0561 26.3213 30.6653 26.7014 32.3251 26.524C32.8573 26.4606 34.5931 26.1819 34.4664 25.0035V24.9402C34.4031 24.3066 34.099 23.8632 30.6779 23.369C26.6994 22.7989 23.367 21.9626 22.8729 17.4392V17.3885C22.4548 13.486 25.2803 10.4197 29.753 9.93826C32.2237 9.67218 34.5298 10.0523 36.6204 11.0786C37.2539 11.37 38.0015 12.0796 38.1155 13.1946C38.2803 14.677 37.2286 15.9568 35.7335 16.1215C35.2267 16.1722 34.7705 16.0961 34.2764 15.8807C32.7432 15.1839 31.4255 14.9178 30.2471 15.0445C29.0561 15.1712 28.3339 15.7034 28.4099 16.3876V16.4509C28.4986 17.2365 28.8534 17.5532 32.4898 18.0727C36.1263 18.6049 39.5346 19.6946 40.0035 23.9265V23.9899C40.4596 28.0825 37.6214 31.0854 32.7939 31.6175Z" fill="#056FEC"/>
+        <path d="M15.6132 15.5513C17.5725 15.5513 19.1609 13.9629 19.1609 12.0036C19.1609 10.0442 17.5725 8.45581 15.6132 8.45581C13.6538 8.45581 12.0654 10.0442 12.0654 12.0036C12.0654 13.9629 13.6538 15.5513 15.6132 15.5513Z" fill="#FF7F1C"/>
+      </svg>
+      <span class="sep"></span><span class="app">منصّة · مراجعة الأدوار</span>
+    </div>
+    <div class="hud">
+      <span class="pill pts" id="hud-pts" title="النقاط">⭐ <span id="pts">٠</span></span>
+      <span class="pill streak" id="hud-streak" title="سلسلة الإجابات الصحيحة">🔥 <span id="streak">٠</span></span>
+      <button class="pill home" id="home-btn" hidden>الرئيسية ⌂</button>
+    </div>
+  </div>
+  <main id="app"></main>
+  <footer>مبني على دليل تدريب منصّة والنسخة التجريبية manasa-demo.ischooltech.com · iSchool ٢٠٢٦</footer>
+</div>
+
+<script>
+const ICONS={
+ general:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>',
+ teacher:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 9h6"/></svg>',
+ student:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg>',
+ principal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5"/></svg>',
+ it:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>',
+ ministry:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+ all:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>'
+};
+const ROLES=[
+ {id:'teacher',name:'المعلّم',desc:'الحضور اليومي، الدرجات والنشر، طلب التصحيح، طلابي.'},
+ {id:'student',name:'الطالب',desc:'تقدّمي، نتائج الموادّ، جدولي، للقراءة فقط.'},
+ {id:'principal',name:'مدير المدرسة',desc:'أرقام المدرسة، إرسال المعلّمين، اعتماد أعذار الغياب.'},
+ {id:'it',name:'مسؤول النظام بالمدرسة',desc:'الطلاب والنقل، الفصول، الإسنادات، الجدول، نوافذ التقييم.'},
+ {id:'ministry',name:'المتابعة والدعم',desc:'لوحة الوزارة، النطاق، المراحل، الأولويات، التقارير.'},
+ {id:'general',name:'أساسيات لكل الأدوار',desc:'الدخول، اختيار الدور، الإعدادات، العمل دون اتصال.'},
+ {id:'all',name:'التحدّي الشامل',desc:'كل الأسئلة من كل الأدوار في جولة واحدة.'}
+];
+const Q=[
+{r:'general',q:'كيف يدخل المستخدم إلى منصّة؟',o:['بإنشاء حساب جديد من الصفحة الرئيسية','بحساب مايكروسوفت ٣٦٥ الذي أعطته له مدرسته','برقم الهاتف','بكلمة مرور يرسلها المعلّم'],a:1,e:'«المتابعة بحساب مايكروسوفت ٣٦٥». لا حاجة إلى كلمة مرور جديدة، ولا يسجّل أحد نفسه؛ المدرسة تنشئ الحسابات.',s:'شريحة: تسجيل الدخول'},
+{r:'general',q:'هل سيختار المستخدم دوره بنفسه بعد الإطلاق الرسمي؟',o:['نعم، في كل مرّة يدخل','نعم، مرّة واحدة فقط','لا، حساب المدرسة يحدّد الدور تلقائيًّا','لا، المدير يختاره له يوميًّا'],a:2,e:'شاشة «اختر دورًا للدخول» موجودة في النسخة التجريبية فقط لتجربة الأدوار من رابط واحد.',s:'شريحة: اختيار الدور'},
+{r:'general',q:'أين تجد خيارات حجم النص والتباين العالي؟',o:['في «طلابي»','من أيقونة الترس ⚙ (الإعدادات) في الشريط العلوي','في صفحة الدخول فقط','لا توجد'],a:1,e:'الإعدادات: اللغة، حجم النص (A / A+ / A++)، وضع العرض (افتراضي، داكن، تباين عالٍ)، وتباعد لعسر القراءة.',s:'شريحة: الإعدادات العامة'},
+{r:'general',q:'قبل تسجيل الخروج على جهاز مشترك، ماذا تتحقّق منه؟',o:['تغيير اللغة','عدم وجود سجلّات بانتظار الإرسال','حذف سجلّ المتصفّح','تفعيل الوضع الداكن'],a:1,e:'نافذة الخروج توضّح هل توجد سجلّات بانتظار الإرسال. ما يُدخل دون اتصال يُرسل وحده عند عودة الإنترنت.',s:'شريحة: العمل دون اتصال وتسجيل الخروج'},
+{r:'teacher',q:'في صفحة «تسجيل الحضور»، ما الحالة الافتراضية لكل الطلاب؟',o:['غائب','حاضر','بعذر','بلا حالة'],a:1,h:'المهمّة تستغرق دقيقة واحدة.',e:'الجميع مُسجَّل حاضرًا مسبقًا. اضغط «غائب» على الغائبين فقط ثم «أرسل حضور اليوم».',s:'شريحة: تسجيل الحضور اليومي'},
+{r:'teacher',q:'حتى متى يعدّل المعلّم حضور اليوم دون كتابة سبب؟',o:['حتى نهاية اليوم نفسه','حتى ٢:٠٠ ظهرًا من اليوم التالي','أسبوعًا كاملًا','لا يمكن بعد الإرسال'],a:1,e:'بعد نافذة التعديل يصبح اليوم مقفلًا، ويحتاج تعديله سببًا مكتوبًا يُسجَّل باسم المعلّم.',s:'شريحة: التعديل والأيام السابقة'},
+{r:'teacher',q:'ما مجموع درجة التقييم الأسبوعي؟',o:['١٥','٣٠','٤٠','١٠٠'],a:2,h:'ثلاثة مكوّنات.',e:'التقييم الأسبوعي ١٥ + الكشكول والواجب ١٥ + السلوك والمواظبة ١٠ = ٤٠. الشهري من ١٥، وامتحان الفصل من ٣٠.',s:'شريحة: التقييمات: الأنواع والحالات'},
+{r:'teacher',q:'أيّ قيمة يرفضها حقل درجة شهرية من ١٥؟',o:['١٢٫٥','غ','١٢٫٣','٠'],a:2,e:'المسموح من ٠ إلى الدرجة الكاملة، والكسر نصف درجة فقط، و«غ» للغائب.',s:'شريحة: إدخال الدرجات ونشرها'},
+{r:'teacher',q:'متى تظهر الدرجات للطالب؟',o:['فور كتابة كل درجة','بعد الضغط على «نشر النتائج للطلاب»','بعد اعتماد المدير','في نهاية الفصل الدراسي'],a:1,e:'كل درجة تُحفظ فورًا («حُفظت»)، لكنها مسودّة يراها المعلّم وحده حتى النشر.',s:'شريحة: إدخال الدرجات ونشرها'},
+{r:'teacher',q:'النافذة «مُرسَلة ومقفلة» وفيها درجة خاطئة. ماذا تفعل؟',o:['تعدّلها مباشرة','تطلب حذف النافذة','تضغط «طلب تصحيح» وتكتب السبب','تتركها'],a:2,e:'الدرجات المقفلة لا تتغيّر إلا بسبب مُسجَّل يطّلع عليه مدير المدرسة، لمنع التغييرات الصامتة.',s:'شريحة: الدرجات المقفلة وطلب التصحيح'},
+{r:'teacher',q:'معلّم لا يرى أحد فصوله. لمن يلجأ؟',o:['مدير المدرسة','مسؤول النظام بالمدرسة لإضافة الإسناد','المتابعة والدعم','يعيد الدخول فقط'],a:1,e:'التكليف هو مصدر الصلاحية: المعلّم يرى الفصول والمادّة المُسندة إليه فقط.',s:'شريحة: تغيير المدرسة أو الفصل'},
+{r:'teacher',q:'ما الذي تفعله صفحة «طلابي»؟',o:['تعديل الحضور والدرجات','عرض ملفّ كل طالب للقراءة فقط','اعتماد الأعذار','نقل الطلاب بين الفصول'],a:1,e:'نسبة الحضور ومتوسّط التقييم والاتجاه والحالة، مع «كيف حُسبت هذه الأرقام؟». التعديل يتمّ من الحضور والتقييمات.',s:'شريحة: طلابي'},
+{r:'student',q:'ماذا يستطيع الطالب أن يفعل في منصّة؟',o:['يسجّل حضوره','يعدّل درجة','يرى حضوره ونتائجه المنشورة وجدوله فقط','يرفع عذر غياب'],a:2,e:'دور الطالب للقراءة فقط: الرئيسية، تقدّمي، جدولي.',s:'شريحة: دور الطالب'},
+{r:'student',q:'ماذا تعني «مفتوحة، لم تُنشر بعد» بجانب أسبوع في مادّة؟',o:['الطالب غاب','النافذة جارية ولم ينشر المعلّم الدرجة','الدرجة صفر','خطأ في النظام'],a:1,e:'«٣٢ / ٤٠» درجة منشورة، «لم تُدخل بعد» لم يكتبها المعلّم، «مفتوحة، لم تُنشر بعد» النافذة جارية.',s:'شريحة: نتيجة مادّة بالتفصيل'},
+{r:'student',q:'أين تظهر امتحانات الوزارة الرسمية؟',o:['في «تقدّمي»','في «جدولي»','في نظام امتحانات الوزارة، منفصلة عن منصّة','في الرئيسية'],a:2,e:'درجات منصّة هي درجات المدرسة لمتابعة التعلّم.',s:'شريحة: تقدّمي'},
+{r:'student',q:'من يُعدّ الجدول الذي يظهر للطالب في «جدولي»؟',o:['الطالب','المعلّم','مسؤول النظام بالمدرسة','الوزارة'],a:2,e:'الجدول كما أعدّته المدرسة من تبويب «الجدول الدراسي»، ويظهر أي تغيير تلقائيًّا.',s:'شريحة: جدولي الدراسي'},
+{r:'principal',q:'ماذا تعني شارة «متأخّر» بجانب معلّم في بطاقة الإرسال؟',o:['يصل متأخّرًا للمدرسة','لم يرسل بياناته هذا الأسبوع','درجاته منخفضة','في إجازة'],a:1,e:'تظهر مع تاريخ آخر إرسال. البطاقة عن الإرسال، لا تقييم لما أُرسل، وللدعم لا للترتيب.',s:'شريحة: إرسال بيانات المعلّمين'},
+{r:'principal',q:'سجّلت عذرًا عبر «سجّل العذر للاعتماد». ما حالته؟',o:['معتمَد تلقائيًّا','في قائمة «بانتظار الاعتماد» حتى تقرّره','مرفوض','يُرسل للمعلّم'],a:1,e:'التسجيل لا يعتمد العذر؛ اضغط «اعتماد» أو «رفض». بعد الاعتماد يصبح اليوم «بعذر» ولا يُحتسب غيابًا.',s:'شريحة: تسجيل عذر جديد'},
+{r:'principal',q:'هل يقارن المدير مدرسته بمدارس أخرى؟',o:['نعم من الرئيسية','نعم من الأعذار','لا، المقارنات من اختصاص المتابعة والدعم','نعم بتقرير PDF'],a:2,e:'المدير يرى مدرسته فقط.',s:'شريحة: نظرة على دور مدير المدرسة'},
+{r:'principal',q:'ما الذي يفعله زرّ «جدول / رسم بياني» في بطاقة الفصول؟',o:['يغيّر الفترة','يعرض البيانات نفسها بشكلين','يصدّر ملفًّا','يرسل تنبيهًا للمعلّمين'],a:1,e:'الحضور في الفترة ومتوسّط التقييم لكل فصل ومادّة، مع اختيار النافذة (١ إلى ١٨).',s:'شريحة: الحضور والتقييم حسب الفصل'},
+{r:'principal',q:'كيف تصل بأسرع طريق إلى الأعذار المنتظرة من الرئيسية؟',o:['من «الفترة»','زرّ «راجِع الأعذار» في بطاقة «يحتاج إجراءك»','من الإعدادات','من «اعرض قائمة الغائبين»'],a:1,e:'البطاقة تعرض عدد الأعذار وأسماء الطلاب، والزر ينقلك مباشرة إلى «أعذار الغياب».',s:'شريحة: الرئيسية: اختيار الفترة والفصل'},
+{r:'it',q:'ما الحقل الاختياري عند إضافة فصل؟',o:['الاسم بالعربية','الاسم بالإنجليزية','الصف الدراسي','لا يوجد'],a:2,e:'ثم «إنشاء». يبدأ الفصل فارغًا بلا طلاب ولا إسناد ولا جدول.',s:'شريحة: الفصول: إضافة فصل جديد'},
+{r:'it',q:'ماذا يُسجَّل عند نقل طالب إلى فصل آخر؟',o:['لا شيء','اسم من نفّذ النقل وتاريخه في «سجلّ الفصول»','فقط الفصل الجديد','رسالة للوزارة'],a:1,e:'كل نقل يُسجَّل باسم من نفّذه وتاريخه، لا نقل صامت. وتظهر للطالب شارة «نُقل».',s:'شريحة: نقل طالب إلى فصل آخر'},
+{r:'it',q:'ماذا يستطيع مسؤول النظام أن يغيّر في «نوافذ التقييم»؟',o:['الدرجة الكاملة','تواريخ النوافذ المفتوحة فقط','النوافذ المنشورة','درجات الطلاب'],a:1,e:'الدرجات الكاملة سياسة وزارية ثابتة، والنافذة المنشورة سجلّ لا يُعدَّل ولا يُحذف.',s:'شريحة: نوافذ التقييم'},
+{r:'it',q:'أين تُضبط العطلة الأسبوعية؟',o:['تبويب الفصول','أسفل «الجدول الدراسي» ثم «حفظ العطلة»','الإعدادات ⚙','لا تُضبط'],a:1,e:'إعداد للمدرسة كلّها: يوم أو يومان، وتتغيّر أعمدة الجدول لكل الفصول.',s:'شريحة: العطلة الأسبوعية للمدرسة'},
+{r:'it',q:'معلّم لا يظهر عند تعديل حصّة في الجدول. ما الحلّ؟',o:['حذف الحصّة','إضافة إسناد له للمادّة والفصل من «المعلّمون»','تغيير العطلة','إنشاء فصل جديد'],a:1,e:'تعديل الحصّة: اختر المادّة ثم المعلّم ثم «تمّ». الإسناد يأتي أولًا.',s:'شريحة: تعديل حصّة في الجدول'},
+{r:'ministry',q:'كيف تُنشأ حالات «أولويات المتابعة»؟',o:['يُدخلها المديرون','يرفعها المعلّمون','قواعد آلية ثابتة على البيانات','يكتبها الفريق يدويًّا'],a:2,e:'كل حالة تذكر الرقم الذي أطلقها في «لماذا رُفعت؟»، وهي إشارة لنظرة بشرية لا حكم آلي.',s:'شريحة: أولويات المتابعة'},
+{r:'ministry',q:'قبل تفسير نسبة الحضور، أيّ رقم تراجع أولًا؟',o:['عدد الطلاب','اكتمال البيانات','متوسّط التقييم','الحالات الشديدة'],a:1,e:'نسبة عالية مع اكتمال بيانات منخفض قد تكون مضلّلة.',s:'شريحة: لوحة المعلومات'},
+{r:'ministry',q:'لماذا مرشّح «الفترة» معطّل في صفحة «التقييم»؟',o:['خطأ','الدرجات تُنشر لكل نافذة لا لكل يوم','صلاحية ناقصة','لا بيانات'],a:1,e:'المتوسّط من النوافذ المكتملة فقط؛ النافذة الجارية لا تدخل الحساب.',s:'شريحة: مقياس التقييم'},
+{r:'ministry',q:'ما ترتيب مراحل الإطلاق في «خريطة المراحل»؟',o:['الجودة ← التغطية ← الوصول','الوصول ← التغطية ← الجودة','التغطية ← الوصول ← الجودة','كلها تعمل معًا'],a:1,e:'كل مرحلة تُفتح بعد اكتمال السابقة، ولها معايير خروج ومسؤول ومدّة.',s:'شريحة: خريطة المراحل'},
+{r:'ministry',q:'ما الذي يُنزَّل عند الضغط على «تنزيل CSV» في التقارير؟',o:['كل بيانات الطلاب','جدول الشريحة نفسها المعروضة','قائمة المعلّمين','الحالات الشديدة فقط'],a:1,e:'التقارير تحترم الصلاحيات: منطقتك وما دونها فقط. و«اطبع / احفظ PDF» للنسخة المطبوعة.',s:'شريحة: التقارير والتصدير'}
+];
+
+const AR='٠١٢٣٤٥٦٧٨٩', n=x=>String(x).replace(/\d/g,d=>AR[d]);
+const $=s=>document.querySelector(s), app=$('#app');
+const KEY='manasa-quiz-game-v2';
+let best={}; try{best=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const saveBest=()=>{try{localStorage.setItem(KEY,JSON.stringify(best))}catch(e){}};
+let S=null; // current session
+const TIME=30; // seconds per question for speed bonus
+
+// sounds (start only after a click)
+let ac=null;
+function tone(freqs,dur=.12,type='sine'){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+  freqs.forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;
+  const t=ac.currentTime+i*dur;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.18,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g).connect(ac.destination);o.start(t);o.stop(t+dur+.02);});}catch(e){}}
+const sGood=()=>tone([660,880,1100],.09,'triangle'), sBad=()=>tone([220,160],.16,'sawtooth'), sWin=()=>tone([523,659,784,1047],.12,'triangle');
+
+// confetti
+const cv=$('#confetti'),cx=cv.getContext('2d');let parts=[];
+function resize(){cv.width=innerWidth;cv.height=innerHeight}addEventListener('resize',resize);resize();
+function confetti(count=120){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const cols=['#056FEC','#FF7F1C','#FFD700','#05ACFF','#0EAA3A'];
+  for(let i=0;i<count;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*12-4,s:Math.random()*8+4,c:cols[i%5],r:Math.random()*6,life:120});
+  if(parts.length===count)requestAnimationFrame(tick);}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.r+=.1;p.life--;
+  cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore();});
+  parts=parts.filter(p=>p.life>0&&p.y<innerHeight+20);if(parts.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);}
+
+function hud(){$('#pts').textContent=n(S?S.pts:0);$('#streak').textContent=n(S?S.streak:0);$('#home-btn').hidden=!S;}
+function bump(id){const el=$(id);el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');}
+function starsFor(pct){return pct>=90?3:pct>=70?2:pct>=40?1:0}
+const starStr=k=>'★'.repeat(k)+'☆'.repeat(3-k);
+const idsFor=r=>Q.map((_,k)=>k).filter(k=>r==='all'||Q[k].r===r);
+
+/* ---------- Home ---------- */
+function home(){S=null;hud();stopTimer();
+  app.innerHTML=`<section class="hero"><span class="eyebrow">دليل تدريب منصّة</span><h1>اختر دورك وابدأ التحدّي</h1>
+  <p class="lede">لكل دور أسئلة وبطاقات استذكار من الدليل التدريبي. اجمع النقاط بالإجابات الصحيحة، وضاعفها بسلسلة الإجابات المتتالية والسرعة.</p></section>
+  <div class="roles" id="roles"></div>`;
+  const box=$('#roles');
+  ROLES.forEach(r=>{const c=idsFor(r.id).length,b=best[r.id],st=b?starsFor(b.pct):0;
+    const el=document.createElement('button');el.className='role'+(r.id==='all'?' all':'');el.id='role-'+r.id;
+    el.innerHTML=`<span class="dot"></span><span class="ic">${ICONS[r.id]}</span><h3>${r.name}</h3><p>${r.desc}</p>
+      <span class="meta"><span>${n(c)} سؤالًا${b?' · أفضل نتيجة '+n(b.pts)+' نقطة':''}</span><span class="stars" aria-label="${n(st)} من ٣ نجوم">${starStr(st)}</span></span>`;
+    el.onclick=()=>start(r.id);box.appendChild(el);});}
+
+/* ---------- Session ---------- */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function start(role,mode='quiz',ids){S={role,mode,ids:ids||shuffle(idsFor(role)),i:0,ans:{},known:{},pts:0,streak:0,bestStreak:0,correct:0};hud();render();}
+let timer=null,left=TIME;
+function stopTimer(){clearInterval(timer);timer=null}
+function startTimer(){stopTimer();left=TIME;const bar=$('#tbar');timer=setInterval(()=>{left-=.1;if(bar)bar.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0)stopTimer();},100);}
+
+function render(){stopTimer();const role=ROLES.find(r=>r.id===S.role);
+  app.innerHTML=`<div class="rhead"><h2>${role.name}</h2><div class="seg" role="group" aria-label="طريقة المراجعة">
+    <button id="m-quiz" aria-pressed="${S.mode==='quiz'}">🎯 اختبار</button><button id="m-cards" aria-pressed="${S.mode==='cards'}">🃏 بطاقات استذكار</button></div></div>
+    <div class="prog"><span id="pos"></span><div class="track"><div class="fill" id="fill"></div></div><span id="sc"></span></div><div id="stage"></div>`;
+  $('#m-quiz').onclick=()=>{if(S.mode!=='quiz')start(S.role,'quiz')};
+  $('#m-cards').onclick=()=>{if(S.mode!=='cards')start(S.role,'cards')};
+  const N=S.ids.length,pos=Math.min(S.i,N);$('#pos').textContent=n(Math.min(pos+1,N))+' / '+n(N);
+  $('#fill').style.width=(pos/N*100)+'%';
+  $('#sc').textContent=S.mode==='quiz'?('✔ '+n(S.correct)+' صحيحة'):('أعرفها '+n(Object.keys(S.known).length));
+  const stage=$('#stage');
+  if(S.i>=N){stage.appendChild(result());return;}
+  stage.appendChild(S.mode==='quiz'?quizCard(S.ids[S.i]):flashCard(S.ids[S.i]));
+  const nav=document.createElement('div');nav.className='nav';
+  const prev=Object.assign(document.createElement('button'),{className:'btn',id:'prev',textContent:'→ السابق',disabled:S.i===0});
+  const k=S.ids[S.i],answered=S.mode==='cards'||(k in S.ans);
+  const next=Object.assign(document.createElement('button'),{className:'btn go',id:'next',textContent:S.i===N-1?'النتيجة 🏁':'التالي ←',disabled:!answered});
+  prev.onclick=()=>{S.i--;render()};next.onclick=()=>{S.i++;render()};nav.append(prev,next);stage.appendChild(nav);
+  if(S.mode==='quiz'&&!answered)startTimer();}
+
+function quizCard(k){const q=Q[k],picked=S.ans[k],done=picked!==undefined,c=document.createElement('section');c.className='card';c.id='card';
+  c.innerHTML=`<span class="tag">${ROLES.find(r=>r.id===q.r)?.name||''}</span><h3 class="q">${q.q}</h3>${done?'':'<div class="timer" title="أجب بسرعة لتحصل على نقاط إضافية"><i id="tbar"></i></div>'}`;
+  const opts=document.createElement('div');opts.className='opts';
+  q.o.forEach((t,j)=>{const b=document.createElement('button');b.className='opt';b.id='opt-'+j;
+    b.innerHTML=`<span class="k">${'أبجد'[j]}</span><span>${t}</span>`;
+    if(done){b.disabled=true;if(j===q.a){b.classList.add('right');b.innerHTML+='<span class="mk">✔ الصحيحة</span>'}else if(j===picked){b.classList.add('wrong');b.innerHTML+='<span class="mk">✘ إجابتك</span>'}}
+    b.onclick=()=>answer(k,j);opts.appendChild(b);});
+  c.appendChild(opts);
+  if(!done&&q.h){const hb=Object.assign(document.createElement('button'),{className:'hintbtn',id:'hint',textContent:'💡 تلميح (−٥ نقاط)'});
+    hb.onclick=()=>{S.pts=Math.max(0,S.pts-5);S.hinted=k;hud();hb.replaceWith(Object.assign(document.createElement('p'),{className:'src',textContent:'تلميح: '+q.h}))};c.appendChild(hb);}
+  if(done){const ok=picked===q.a,f=document.createElement('div');f.className='feedback '+(ok?'ok':'bad');
+    f.innerHTML=`<b>${ok?pick(['ممتاز! 🎉','أحسنت! 👏','إجابة صحيحة ✨','رائع، واصل! 🚀']):pick(['ليست هذه 🙁','قريبة، راجع الشرح 👇','لا بأس، تعلّمنا شيئًا 📘'])}</b><p>${q.e}</p><span class="src">📍 ${q.s}</span>`;c.appendChild(f);}
+  return c;}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+function answer(k,j){if(k in S.ans)return;const q=Q[k],ok=j===q.a;S.ans[k]=j;stopTimer();
+  let gain=0;
+  if(ok){S.streak++;S.bestStreak=Math.max(S.bestStreak,S.streak);S.correct++;
+    const speed=Math.round(Math.max(0,left)/TIME*5);const mult=S.streak>=5?3:S.streak>=3?2:1;
+    gain=(10+speed)*mult;S.pts+=gain;sGood();if(S.streak===3||S.streak===5||S.streak%10===0)confetti(60);}
+  else{S.streak=0;gain=-3;S.pts=Math.max(0,S.pts-3);sBad();}
+  hud();bump('#hud-pts');if(ok)bump('#hud-streak');
+  render();const card=$('#card');card.classList.add(ok?'glow':'shake');
+  const fl=document.createElement('span');fl.className='float '+(ok?'p':'m');fl.textContent=(ok?'+':'')+n(gain);card.appendChild(fl);
+  if(ok&&S.streak>=3){const b=document.createElement('span');b.className='float p';b.style.top='54px';b.style.fontSize='18px';b.textContent='🔥 ×'+n(S.streak>=5?3:2);card.appendChild(b);}}
+
+function flashCard(k){const q=Q[k],w=document.createElement('section');
+  const f=document.createElement('button');f.className='flip';f.id='flip';f.setAttribute('aria-label','اقلب البطاقة');
+  f.innerHTML=`<div class="inner"><div class="face front"><span class="tag">${ROLES.find(r=>r.id===q.r)?.name||''}</span><h3 class="q">${q.q}</h3><span class="tap">👆 اضغط لترى الإجابة</span></div>
+   <div class="face back"><span class="tag">الإجابة</span><p class="ans">${q.o[q.a]}</p><p style="margin:0">${q.e}</p><span class="src">📍 ${q.s}</span><span class="tap">اضغط للعودة إلى السؤال</span></div></div>`;
+  f.onclick=()=>{f.classList.toggle('on');tone([500],.05)};w.appendChild(f);
+  const kn=document.createElement('div');kn.className='know';
+  const y=Object.assign(document.createElement('button'),{className:'btn ok',id:'know',textContent:'✔ أعرفها (+٥)'});
+  const no=Object.assign(document.createElement('button'),{className:'btn bad',id:'again',textContent:'↺ أحتاج مراجعتها'});
+  y.onclick=()=>{if(!S.known[k]){S.known[k]=1;S.pts+=5;sGood();hud();bump('#hud-pts')}S.i++;render()};
+  no.onclick=()=>{delete S.known[k];S.i++;render()};kn.append(y,no);w.appendChild(kn);return w;}
+
+function result(){const c=document.createElement('section');c.className='card result';const N=S.ids.length;
+  if(S.mode==='quiz'){const pct=Math.round(S.correct/N*100),st=starsFor(pct);
+    const prev=best[S.role];const isBest=!prev||S.pts>prev.pts;if(isBest){best[S.role]={pts:S.pts,pct};saveBest();}
+    const title=pct>=90?'خبير الدور 🏆':pct>=70?'جاهز للعمل 🎖️':pct>=40?'في الطريق الصحيح 📈':'ابدأ بمراجعة البطاقات 📘';
+    c.innerHTML=`<div class="medal ${pct>=90?'':pct>=70?'silver':'bronze'}">${pct>=90?'🏆':pct>=70?'🥈':pct>=40?'🥉':'📘'}</div>
+     <h2 style="margin:0;color:var(--blue-deep)">${title}</h2><div class="stars" style="font-size:34px">${starStr(st)}</div>
+     <div class="big">${n(S.pts)} نقطة</div>${isBest&&prev?'<span class="tag">🎉 رقم قياسي جديد لهذا الدور</span>':''}
+     <div class="statrow"><div class="stat"><b>${n(S.correct)} / ${n(N)}</b><span>إجابات صحيحة</span></div>
+     <div class="stat"><b>${n(pct)}٪</b><span>نسبة النجاح</span></div><div class="stat"><b>🔥 ${n(S.bestStreak)}</b><span>أطول سلسلة</span></div></div>`;
+    const miss=S.ids.filter(k=>S.ans[k]!==undefined&&S.ans[k]!==Q[k].a);
+    if(miss.length){const m=document.createElement('div');m.className='missed';m.innerHTML='<b>راجع هذه الأسئلة:</b>';
+      miss.forEach(k=>m.insertAdjacentHTML('beforeend',`<div>${Q[k].q}<br><b>الصحيح:</b> ${Q[k].o[Q[k].a]} · <span class="src">${Q[k].s}</span></div>`));c.appendChild(m);}
+    const a=document.createElement('div');a.className='actions';
+    a.append(btn('↻ العب مرّة أخرى','go',()=>start(S.role,'quiz')));
+    if(miss.length)a.append(btn('🃏 راجع الأخطاء كبطاقات','blue',()=>start(S.role,'cards',miss)));
+    a.append(btn('⌂ اختر دورًا آخر','',home));c.appendChild(a);
+    if(pct>=70){sWin();confetti(180)}
+  }else{const k=Object.keys(S.known).length,unk=S.ids.filter(x=>!S.known[x]);
+    c.innerHTML=`<div class="medal ${k===N?'':'silver'}">${k===N?'🧠':'🃏'}</div><h2 style="margin:0;color:var(--blue-deep)">${k===N?'عرفت كل البطاقات!':'جولة البطاقات انتهت'}</h2>
+     <div class="big">${n(k)} / ${n(N)}</div><p style="margin:0">${unk.length?'بقيت '+n(unk.length)+' بطاقة للمراجعة.':'جرّب الآن وضع الاختبار لجمع النقاط.'}</p>`;
+    const a=document.createElement('div');a.className='actions';
+    if(unk.length)a.append(btn('↺ راجع المتبقّية فقط','go',()=>start(S.role,'cards',unk)));
+    a.append(btn('🎯 ابدأ الاختبار','blue',()=>start(S.role,'quiz')),btn('⌂ اختر دورًا آخر','',home));c.appendChild(a);
+    if(k===N){sWin();confetti(150)}}
+  return c;}
+function btn(t,cls,fn){const b=document.createElement('button');b.className='btn '+cls;b.textContent=t;b.onclick=fn;return b}
+
+$('#home-btn').onclick=home;
+document.addEventListener('keydown',e=>{if(!S||S.i>=S.ids.length)return;const k=S.ids[S.i];
+  if(S.mode==='quiz'&&!(k in S.ans)&&['1','2','3','4'].includes(e.key))answer(k,+e.key-1);
+  else if(S.mode==='cards'&&e.key===' '){e.preventDefault();$('#flip')?.classList.toggle('on')}
+  else if(e.key==='Enter'){$('#next')&&!$('#next').disabled&&$('#next').click()}});
+home();
+</script>
+</body>
+</html>
